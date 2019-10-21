@@ -184,14 +184,14 @@ public class GeneralSettings : EditorWindow
         ROGUE
     }
     static SettingsType dataSettings;
-    static GeneralSettings window;
+    static GeneralSettings settingsWindow;
     public static void OpenWindow(SettingsType settings)
     {
         dataSettings = settings;
-        window = (GeneralSettings)GetWindow(typeof(GeneralSettings));
-        window.minSize = new Vector2(250, 200);
-        window.maxSize = new Vector2(250, 350);
-        window.Show();
+        settingsWindow = (GeneralSettings)GetWindow(typeof(GeneralSettings));
+        settingsWindow.minSize = new Vector2(250, 200);
+        settingsWindow.maxSize = new Vector2(250, 350);
+        settingsWindow.Show();
     }
     private void OnGUI()
     {
@@ -246,10 +246,17 @@ public class GeneralSettings : EditorWindow
         GUILayout.Label("Name");
         charachterData.name = EditorGUILayout.TextField(charachterData.name);
         EditorGUILayout.EndHorizontal();
-
-        if (GUILayout.Button("Finish and Save Data", GUILayout.Height(30)){
+        if (charachterData.prefab == null)
+        {
+            EditorGUILayout.HelpBox("This Enemy needs a [Prefab] befor creating it", MessageType.Warning);
+        }
+        else if(charachterData.name == null || charachterData.name.Length < 1)
+        {
+            EditorGUILayout.HelpBox("This Enemy needs a [Name] befor creating it", MessageType.Warning);
+        }
+        else if (GUILayout.Button("Finish and Save Data", GUILayout.Height(30))){
             SaveCharachterData();
-            window.Close();
+            settingsWindow.Close();
         }
 
     }
