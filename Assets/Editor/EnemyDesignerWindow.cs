@@ -25,7 +25,7 @@ public class EnemyDesignerWindow : EditorWindow
     public static WorrierData WarriorInfo { get { return warriorData; } }
     public static RogueData RogueInfo { get { return rogueData; } }
 
-
+    public GUISkin skin;
 
     [MenuItem("Window/Enemy Designer")] //this line detrmine where can we access this window from unity
     static void OpenWindow()
@@ -45,6 +45,7 @@ public class EnemyDesignerWindow : EditorWindow
         mageData = (MageData)ScriptableObject.CreateInstance(typeof(MageData));
         warriorData = (WorrierData)ScriptableObject.CreateInstance(typeof(WorrierData));
         rogueData = (RogueData)ScriptableObject.CreateInstance(typeof(RogueData));
+        skin = Resources.Load<GUISkin>("Assets/Resources/GUIStyle/EnemyWindowSkin");
 
     }
     //intialize all textures
@@ -97,7 +98,7 @@ public class EnemyDesignerWindow : EditorWindow
     }
     //draw header content 
     void DrawHeaders()
-    {
+    {       
         GUILayout.BeginArea(headerSection);
         GUILayout.Label("Enemy Designer");
         GUILayout.EndArea();
